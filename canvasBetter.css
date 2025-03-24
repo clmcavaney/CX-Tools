@@ -30,6 +30,20 @@
     text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
 }
 
+.cx-tools-access-token-warning {
+	position: absolute;
+	right: 10rem;
+	top: 0;
+	z-index: 1000;
+	background: #f00;
+	opacity: 0.4;
+	font-family: ‘Roboto’, sans-serif;
+	font-size: 12px;
+	color: #ffff3d;
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+}
+
 #cx_processing {
 	position: fixed;
 	top: 115;

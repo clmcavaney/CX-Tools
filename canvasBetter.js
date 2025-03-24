@@ -2,7 +2,7 @@
 // @name         Canvas Experience (CX) Tools
 // @namespace    https://siteadmin.instructure.com/
 // @namespace    https://instructure.my.salesforce.com/*
-// @version      2025030601
+// @version      2025032402
 // @description  Trying to take over the world! "Canvas Experience (CX) Tools"
 // @author       Daniel Gilogley, Zoe Bogner and Christopher McAvaney
 // @match        https://*.test.instructure.com/*
@@ -43,7 +43,7 @@ function myJQueryCode() {
     var userToken = getItem('token');
     var token = userToken;
     var _cx_tools_on = false;
-    var _cx_tools_version = '2025030601';
+    var _cx_tools_version = '2025032402';
 
     // If on an instructure page
     if (document.location.hostname.indexOf('instructure.com') >= 0) {
@@ -891,6 +891,11 @@ function myJQueryCode() {
                 $('body').prepend('<div class="cx-tools-ribbon"><img src="https://raw.githubusercontent.com/clmcavaney/CX-Tools/master/assets/dabpanda-cropped-16x16.png" /> CX Tools ON</div>');
             }
 
+            // Display a warning so that users know to configure their access token
+            if (token === null || (typeof token === "string" && token.length === 0)) {
+                $('body').prepend('<div class="cx-tools-access-token-warning"><img src="https://raw.githubusercontent.com/clmcavaney/CX-Tools/master/assets/dabpanda-cropped-16x16.png" /> NO ACCESS TOKEN CONFIGURED</div>');
+            }
+
         });
         // ELSE if on the IC request page
     } else if (document.location.hostname === "s3.amazonaws.com") {
@@ -997,7 +1002,7 @@ function myJQueryCode() {
         if(apiReply.length > 0){
           $.each(apiReply,function(index,element){
             console.log(element);
-            $("td.external_tool.e-tool-table-data[title='"+ element.name + "']").append(' - LTI ID #' + element.id);
+            $("td.external_tool.e-tool-table-data[title='"+ element.name.replace(/[']/g, '\\$&') + "']").append(' - LTI ID #' + element.id);
           });
 
           //add the hide button too
